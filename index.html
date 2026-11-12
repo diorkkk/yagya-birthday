@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yagya's 15th Birthday 👑</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;color:white;text-align:center;
+ font-family:Arial,sans-serif;overflow-x:hidden;
+ background:radial-gradient(ellipse at top,#354b91,#11152f 48%,#080914);
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+ background-image:radial-gradient(white 1px,transparent 1px);
+ background-size:55px 55px;animation:stars 25s linear infinite;
+}
+@keyframes stars{to{background-position:100px 100px}}
+.container{position:relative;z-index:2;padding:25px 15px 60px}
+.hero{padding:45px 10px 30px}
+.tag{color:#a9c7ff;letter-spacing:5px;font-size:12px}
+h1{font-size:clamp(35px,8vw,65px);color:#ffe18a;text-shadow:0 0 25px #e8a52e;margin:15px 0}
+h2{color:#ffe18a}
+.subtitle{color:#c5d5ff}
+.card{
+ max-width:620px;margin:22px auto;padding:25px;
+ border:1px solid #ffffff25;border-radius:25px;
+ background:linear-gradient(145deg,#ffffff18,#ffffff08);
+ backdrop-filter:blur(16px);
+ box-shadow:0 15px 45px #0006,inset 0 1px #ffffff20;
+}
+.boy{font-size:85px;animation:bounce 2s infinite}
+@keyframes bounce{50%{transform:translateY(-12px)}}
+.countdown{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:25px 0}
+.time{
+ width:95px;padding:17px 5px;border-radius:17px;
+ background:linear-gradient(145deg,#394eaa,#703bb0);
+ border:1px solid #ffffff35;box-shadow:0 8px 25px #0005;
+}
+.time strong{display:block;font-size:30px;color:#ffe18a}
+.time span{font-size:10px;letter-spacing:2px;color:#dce4ff}
+button{
+ border:0;border-radius:30px;padding:13px 22px;margin:7px;
+ color:white;font-weight:bold;cursor:pointer;
+ background:linear-gradient(120deg,#398cff,#914cff);
+ box-shadow:0 5px 20px #655cff55;transition:.25s;
+}
+button:hover{transform:translateY(-3px) scale(1.04);filter:brightness(1.2)}
+input{
+ padding:14px;border-radius:15px;border:1px solid #ffffff40;
+ background:#11152f;color:white;width:100%;max-width:300px;
+ outline:none;
+}
+input:focus{border-color:#8c9cff;box-shadow:0 0 15px #7b69ff66}
+#birthdayContent{display:none}
+#birthdayContent.show{display:block;animation:reveal 1.5s ease}
+@keyframes reveal{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.admin{max-width:520px}
+.admin summary{cursor:pointer;color:#b9c8ff;font-size:14px}
+.command-list{color:#c9d4ff;font-size:13px;line-height:2;text-align:left}
+.command-list code{color:#ffe18a}
+#commandResult{color:#b8d4ff;font-size:13px}
+
+/* PREMIUM CAKE */
+.cake-area{
+ height:340px;display:grid;place-items:center;
+ perspective:1000px;overflow:visible;
+}
+.cake3d{
+ position:relative;width:270px;height:270px;
+ transform-style:preserve-3d;
+ animation:cakeSpin 8s ease-in-out infinite;
+}
+@keyframes cakeSpin{
+ 0%,100%{transform:rotateY(-13deg) rotateX(5deg)}
+ 50%{transform:rotateY(13deg) rotateX(5deg) translateY(-8px)}
+}
+.cake-shadow{
+ position:absolute;bottom:3px;left:25px;
+ width:220px;height:25px;border-radius:50%;
+ background:#0008;filter:blur(12px);
+}
+.cake-tier{
+ position:absolute;left:50%;transform:translateX(-50%);
+ border-radius:15px 15px 25px 25px;
+ box-shadow:inset -15px -9px 20px #0005,
+ inset 10px 5px 15px #ffffff55,0 12px 20px #0006;
+}
+.tier-bottom{
+ bottom:18px;width:245px;height:90px;
+ background:linear-gradient(90deg,#8f2456,#ff77a9,#bd376d);
+}
+.tier-middle{
+ bottom:100px;width:195px;height:75px;
+ background:linear-gradient(90deg,#6031a8,#c18bff,#7439bc);
+}
+.tier-top{
+ bottom:168px;width:145px;height:58px;
+ background:linear-gradient(90deg,#d38b32,#ffe5a1,#d99b40);
+}
+.cake-icing{
+ position:absolute;left:50%;transform:translateX(-50%);
+ height:19px;border-radius:50%;
+ background:linear-gradient(#fff,#ffd8ed);
+ box-shadow:0 5px 10px #0003;
+ z-index:4;
+}
+.icing-bottom{bottom:99px;width:245px}
+.icing-middle{bottom:167px;width:195px}
+.icing-top{bottom:218px;width:145px}
+.drip{
+ position:absolute;top:9px;width:17px;height:26px;
+ border-radius:0 0 12px 12px;background:#fff;
+}
+.drip:nth-child(1){left:12%}
+.drip:nth-child(2){left:35%;height:35px}
+.drip:nth-child(3){left:64%;height:30px}
+.drip:nth-child(4){left:85%;height:22px}
+.berry{
+ position:absolute;z-index:8;font-size:22px;
+ filter:drop-shadow(0 4px 3px #0005);
+}
+.berry1{bottom:42px;left:35px}
+.berry2{bottom:45px;right:35px}
+.berry3{bottom:122px;left:65px}
+.berry4{bottom:122px;right:65px}
+.cake-number{
+ position:absolute;bottom:224px;left:50%;
+ transform:translateX(-50%);
+ z-index:12;font-size:39px;font-weight:1000;
+ color:#ffe18a;text-shadow:0 0 15px #ffb52e;
+}
+.candle{
+ position:absolute;bottom:220px;width:11px;height:42px;
+ border-radius:5px;z-index:10;
+ background:repeating-linear-gradient(45deg,#fff 0 5px,#ff6f9d 5px 10px);
+}
+.c1{left:65px}.c2{left:105px}.c3{left:145px}.c4{left:185px}.c5{left:225px}
+.flame{
+ position:absolute;top:-23px;left:-3px;width:17px;height:23px;
+ border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+ background:linear-gradient(#fff76a,#ff9e24,#ff3b00);
+ box-shadow:0 0 15px #ff9e24,0 0 30px #ff6a00;
+ animation:flicker .3s infinite alternate;
+}
+@keyframes flicker{to{transform:rotate(-45deg) scale(1.25)}}
+.flame.off{display:none}
+.cake-base{
+ position:absolute;bottom:5px;left:50%;transform:translateX(-50%);
+ width:270px;height:17px;border-radius:50%;
+ background:linear-gradient(#fff4d7,#d5a75b);
+ box-shadow:0 8px 15px #0008;
+}
+.gift{width:110px;height:85px;margin:30px auto;position:relative;cursor:pointer}
+.gift-body{position:absolute;bottom:0;width:110px;height:65px;background:#ff4e94;border-radius:6px}
+.gift-body:after{content:"";position:absolute;left:47px;width:16px;height:100%;background:#ffe18a}
+.lid{position:absolute;top:10px;left:-7px;width:124px;height:22px;background:#ff9bc4;border-radius:5px;transition:.6s}
+.gift.open .lid{transform:translateY(-45px) rotate(-20deg)}
+.note{display:none;background:#fff0f8;color:#523277;padding:20px;border-radius:15px;max-width:350px;margin:auto}
+.note.show{display:block;animation:reveal 1s}
+.final-message{border:2px solid #ffe18a}
+#birthdayContent p{line-height:1.8;color:#e1e7ff}
+.floating-message{
+ position:fixed;z-index:99;pointer-events:none;
+ font-size:clamp(17px,4vw,25px);font-weight:bold;
+ color:#ffe18a;text-shadow:0 0 15px #ffae00;
+ white-space:nowrap;animation:fly 3.5s ease forwards;
+}
+@keyframes fly{
+ 0%{opacity:0;transform:translateY(30px) scale(.7)}
+ 15%{opacity:1}85%{opacity:1}
+ 100%{opacity:0;transform:translateY(-100px) scale(1.1)}
+}
+footer{color:#aab8e7;font-size:12px;margin-top:35px}
+@media(max-width:450px){
+ .time{width:72px}
+ .card{padding:20px 13px}
+ .cake3d{transform:scale(.9)}
+}
+
+/* MOBILE-FRIENDLY LAYOUT */
+html { width: 100%; overflow-x: hidden; }
+body { width: 100%; }
+.container { width: 100%; max-width: 1100px; margin: 0 auto; }
+.card { width: min(100% - 30px, 620px); }
+button { min-height: 44px; touch-action: manipulation; }
+input { font-size: 16px; } /* prevents iPhone zoom when focusing */
+.cake-area { width: 100%; }
+@media (max-width: 600px) {
+  .container { padding: 12px 8px 36px; }
+  .hero { padding: 32px 8px 20px; }
+  .tag { letter-spacing: 3px; font-size: 10px; }
+  h1 { font-size: clamp(30px, 9vw, 46px); overflow-wrap: anywhere; }
+  .subtitle { font-size: 14px; line-height: 1.6; }
+  .boy { font-size: 68px; }
+  .card { width: calc(100% - 12px); margin: 14px auto; padding: 20px 12px; border-radius: 20px; }
+  .countdown { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; max-width: 280px; margin: 20px auto; }
+  .time { width: auto; min-width: 0; padding: 13px 4px; }
+  .time strong { font-size: 27px; }
+  .time span { font-size: 9px; letter-spacing: 1.5px; }
+  .cake-area { height: 285px; overflow: hidden; }
+  .cake3d { transform: scale(.82); transform-origin: center center; animation: none; }
+  .cake-area + button, .cake-area ~ button { max-width: calc(50% - 18px); padding: 12px 10px; font-size: 12px; }
+  .gift { margin: 24px auto; }
+  .command-list { font-size: 12px; overflow-wrap: anywhere; }
+  .admin input { max-width: 100%; }
+  .floating-message { max-width: 90vw; white-space: normal; text-align: center; }
+}
+@media (max-width: 360px) {
+  .container { padding-left: 4px; padding-right: 4px; }
+  .card { width: calc(100% - 8px); }
+  .cake3d { transform: scale(.74); }
+  .cake-area { height: 260px; }
+  button { margin: 5px 3px; padding: 12px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+</style>
+</head>
+
+<body>
+<main class="container">
+
+<header class="hero">
+ <div class="tag">A SPECIAL DAY IS COMING</div>
+ <h1>YAGYA'S BIRTHDAY 🎉</h1>
+ <p class="subtitle">One legend. One birthday. One unforgettable party.</p>
+ <div class="boy">👦🏻</div>
+ <h2>THE BIRTHDAY KING 👑</h2>
+</header>
+
+<section class="card">
+ <h2>⏳ COUNTDOWN</h2>
+ <p>1 MANGSIR 2083 • 17 NOVEMBER 2026</p>
+ <div class="countdown">
+  <div class="time"><strong id="days">00</strong><span>DAYS</span></div>
+  <div class="time"><strong id="hours">00</strong><span>HOURS</span></div>
+  <div class="time"><strong id="minutes">00</strong><span>MINUTES</span></div>
+  <div class="time"><strong id="seconds">00</strong><span>SECONDS</span></div>
+ </div>
+ <h3 id="countdownMessage">The king's day is approaching! 💙</h3>
+</section>
+
+<details class="card admin">
+ <summary>🔐 ADMIN COMMAND CENTER</summary>
+ <p class="subtitle">Enter a secret command to control the website.</p>
+ <input id="commandInput" type="password" placeholder="Enter admin command...">
+ <br>
+ <button onclick="runCommand()">EXECUTE COMMAND</button>
+ <p id="commandResult">Waiting for command...</p>
+ <div class="command-list">
+  <b>AVAILABLE COMMANDS</b><br>
+  <code>yagya15</code> — Unlock birthday preview<br>
+  <code>showall</code> — Reveal birthday content<br>
+  <code>hidesecret</code> — Hide birthday content<br>
+  <code>partytime</code> — Confetti explosion<br>
+  <code>fireworks</code> — Fireworks display<br>
+  <code>midnight</code> — Show birthday message<br>
+  <code>float</code> — Spawn floating message<br>
+  <code>timer10</code> — 10-second countdown<br>
+  <code>timer30</code> — 30-second countdown<br>
+  <code>timer60</code> — 60-second countdown<br>
+  <code>realtime</code> — Restore actual birthday timer<br>
+  <code>help</code> — Show commands<br>
+  <code>reset</code> — Reload website
+ </div>
+</details>
+
+<div id="birthdayContent">
+
+ <section class="card">
+  <h2>🎂 A CAKE FOR THE KING</h2>
+  <p>A legendary cake for a legendary 15-year-old!</p>
+
+  <div class="cake-area">
+   <div class="cake3d">
+
+    <div class="cake-shadow"></div>
+
+    <div class="cake-tier tier-bottom"></div>
+    <div class="cake-tier tier-middle"></div>
+    <div class="cake-tier tier-top"></div>
+
+    <div class="cake-icing icing-bottom">
+     <div class="drip"></div><div class="drip"></div>
+     <div class="drip"></div><div class="drip"></div>
+    </div>
+
+    <div class="cake-icing icing-middle">
+     <div class="drip"></div><div class="drip"></div>
+     <div class="drip"></div><div class="drip"></div>
+    </div>
+
+    <div class="cake-icing icing-top"></div>
+
+    <div class="berry berry1">🍓</div>
+    <div class="berry berry2">🍒</div>
+    <div class="berry berry3">🫐</div>
+    <div class="berry berry4">🍓</div>
+
+    <div class="cake-number">15</div>
+
+    <div class="candle c1"><div class="flame"></div></div>
+    <div class="candle c2"><div class="flame"></div></div>
+    <div class="candle c3"><div class="flame"></div></div>
+    <div class="candle c4"><div class="flame"></div></div>
+    <div class="candle c5"><div class="flame"></div></div>
+
+    <div class="cake-base"></div>
+   </div>
+  </div>
+
+  <button onclick="blowCandles()">🕯️ BLOW CANDLES</button>
+  <button onclick="relightCandles()">🔥 RELIGHT</button>
+  <button onclick="celebrate()">🎊 CELEBRATE</button>
+  <button onclick="fireworks()">🎆 FIREWORKS</button>
+ </section>
+
+ <section class="card">
+  <h2>💙 DEAR YAGYA</h2>
+  <p>May your life be filled with happiness, success, laughter and unforgettable memories. May all your dreams come true. Keep smiling and keep shining!</p>
+  <h2>HAPPY BIRTHDAY! 👑</h2>
+ </section>
+
+ <section class="card">
+  <h2>🎁 A SPECIAL SURPRISE</h2>
+  <p>Tap the gift to open it!</p>
+  <div class="gift" id="gift" onclick="openGift()">
+   <div class="lid"></div>
+   <div class="gift-body"></div>
+  </div>
+  <div class="note" id="note">
+   <h2>🎉 SURPRISE YAGYA!</h2>
+   <p>You are one of a kind! Enjoy your special day. Wishing you endless happiness! 💙</p>
+  </div>
+ </section>
+
+ <section class="card final-message">
+  <h1>HAPPY 15TH BIRTHDAY!</h1>
+  <h2>YAGYA 👑</h2>
+  <p>You have turned 15! 🥳</p>
+  <p>You're closer to death, but we don't care about that... 💀</p>
+  <h2>WE NEED THE PARTY ANYWAY! 🔥🎂</h2>
+  <h1>LET'S GOOOO! 🎊</h1>
+ </section>
+
+</div>
+
+<footer>Made with ❤️ for Yagya | 1 Mangsir 2083</footer>
+</main>
+
+<script>
+const birthday = new Date("2026-11-17T00:00:00+05:45").getTime();
+
+let unlocked = false;
+let previewDeadline = null;
+let previewMode = false;
+let previewFinished = false;
+let floatingStarted = false;
+
+const messages = [
+ "🎉 ANNIVERSARY PARTY!!",
+ "💀 YAGYA IS GETTING OLD!",
+ "👑 THE KING HAS ARRIVED!",
+ "🎂 WHERE IS THE CAKE?!",
+ "🔥 PARTY NEVER ENDS!",
+ "🥳 HAPPY 15TH YAGYA!",
+ "💙 BEST DAY EVER!",
+ "🚨 PARTY ALERT!",
+ "😂 SOMEONE BRING THE FOOD!",
+ "🎁 SURPRISEEEEE!"
+];
+
+function unlockBirthday(){
+ if(unlocked)return;
+
+ unlocked=true;
+ document.getElementById("birthdayContent").classList.add("show");
+ celebrate();
+ startFloatingMessages();
+}
+
+function runCommand(){
+ const command=document.getElementById("commandInput").value.trim().toLowerCase();
+ const result=document.getElementById("commandResult");
+
+ switch(command){
+
+  case "yagya15":
+  case "showall":
+   unlockBirthday();
+   document.getElementById("countdownMessage").textContent="🎉 PREVIEW MODE ACTIVATED!";
+   result.textContent="✅ Birthday content unlocked!";
+   break;
+
+  case "partytime":
+   celebrate();
+   result.textContent="🎊 PARTY MODE ACTIVATED!";
+   break;
+
+  case "fireworks":
+   fireworks();
+   result.textContent="🎆 FIREWORKS ACTIVATED!";
+   break;
+
+  case "hidesecret":
+   unlocked=false;
+   document.getElementById("birthdayContent").classList.remove("show");
+   result.textContent="🔒 Birthday content hidden.";
+   break;
+
+  case "midnight":
+   unlockBirthday();
+   document.getElementById("countdownMessage").textContent="🎉 HAPPY BIRTHDAY YAGYA! THE KING'S DAY IS HERE!";
+   fireworks();
+   result.textContent="🌙 Birthday message displayed!";
+   break;
+
+  case "float":
+   showFloatingMessage();
+   result.textContent="💬 Floating message launched!";
+   break;
+
+  case "timer10":
+   startPreview(10);
+   result.textContent="⏱️ 10-second preview started!";
+   break;
+
+  case "timer30":
+   startPreview(30);
+   result.textContent="⏱️ 30-second preview started!";
+   break;
+
+  case "timer60":
+   startPreview(60);
+   result.textContent="⏱️ 60-second preview started!";
+   break;
+
+  case "realtime":
+   previewMode=false;
+   previewFinished=false;
+   previewDeadline=null;
+   unlocked=false;
+   document.getElementById("birthdayContent").classList.remove("show");
+   document.getElementById("countdownMessage").textContent="The king's day is approaching! 💙";
+   updateCountdown();
+   result.textContent="📅 Real birthday countdown restored!";
+   break;
+
+  case "help":
+   result.textContent="Commands: yagya15, showall, hidesecret, partytime, fireworks, midnight, float, timer10, timer30, timer60, realtime, help, reset";
+   break;
+
+  case "reset":
+   location.reload();
+   break;
+
+  default:
+   result.textContent="❌ Unknown command. Type help.";
+ }
+
+ document.getElementById("commandInput").value="";
+}
+
+document.getElementById("commandInput").addEventListener("keydown",e=>{
+ if(e.key==="Enter")runCommand();
+});
+
+function startPreview(seconds){
+ previewDeadline=Date.now()+seconds*1000;
+ previewMode=true;
+ previewFinished=false;
+ unlocked=false;
+
+ document.getElementById("birthdayContent").classList.remove("show");
+ document.getElementById("countdownMessage").textContent=
+  "⚡ PREVIEW COUNTDOWN: "+seconds+" SECONDS!";
+
+ updateCountdown();
+}
+
+function updateCountdown(){
+
+ if(previewFinished){
+  ["days","hours","minutes","seconds"].forEach(id=>{
+   document.getElementById(id).textContent="00";
+  });
+  return;
+ }
+
+ const target=previewMode?previewDeadline:birthday;
+ const difference=target-Date.now();
+
+ if(difference<=0){
+
+  ["days","hours","minutes","seconds"].forEach(id=>{
+   document.getElementById(id).textContent="00";
+  });
+
+  if(previewMode){
+   previewMode=false;
+   previewFinished=true;
+   document.getElementById("countdownMessage").textContent=
+    "🔥 10-SECOND PREVIEW COMPLETE!";
+  }else{
+   document.getElementById("countdownMessage").textContent=
+    "🎉 THE WAIT IS OVER!";
+  }
+
+  unlockBirthday();
+  return;
+ }
+
+ document.getElementById("days").textContent=
+  Math.floor(difference/86400000);
+
+ document.getElementById("hours").textContent=
+  String(Math.floor(difference/3600000)%24).padStart(2,"0");
+
+ document.getElementById("minutes").textContent=
+  String(Math.floor(difference/60000)%60).padStart(2,"0");
+
+ document.getElementById("seconds").textContent=
+  String(Math.floor(difference/1000)%60).padStart(2,"0");
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+function blowCandles(){
+ document.querySelectorAll(".flame").forEach(f=>f.classList.add("off"));
+ alert("Make a wish, Yagya! 💙🎂");
+}
+
+function relightCandles(){
+ document.querySelectorAll(".flame").forEach(f=>f.classList.remove("off"));
+}
+
+function openGift(){
+ document.getElementById("gift").classList.toggle("open");
+ document.getElementById("note").classList.toggle("show");
+}
+
+function celebrate(){
+ const colors=["#ffe18a","#ff65a9","#7deaff","#9b83ff","white"];
+
+ for(let i=0;i<120;i++){
+  const piece=document.createElement("div");
+  piece.style.cssText=
+   `position:fixed;left:${Math.random()*100}vw;top:-15px;width:9px;height:12px;background:${colors[Math.floor(Math.random()*colors.length)]};z-index:100;pointer-events:none`;
+
+  document.body.appendChild(piece);
+
+  const animation=piece.animate([
+   {transform:"translateY(0) rotate(0)",opacity:1},
+   {transform:`translateY(${innerHeight+50}px) rotate(720deg)`,opacity:0}
+  ],{duration:2000+Math.random()*2500,easing:"ease-in"});
+
+  animation.onfinish=()=>piece.remove();
+ }
+}
+
+function fireworks(){
+ const colors=["#ffe18a","#ff65a9","#7deaff","#a98bff","#ffffff"];
+
+ for(let burst=0;burst<7;burst++){
+  setTimeout(()=>{
+   const x=10+Math.random()*80;
+   const y=15+Math.random()*45;
+
+   for(let i=0;i<28;i++){
+    const spark=document.createElement("div");
+
+    spark.style.cssText=
+     `position:fixed;left:${x}vw;top:${y}vh;width:7px;height:7px;border-radius:50%;background:${colors[Math.floor(Math.random()*colors.length)]};z-index:200;pointer-events:none`;
+
+    document.body.appendChild(spark);
+
+    const angle=Math.PI*2*i/28;
+    const distance=60+Math.random()*100;
+
+    const animation=spark.animate([
+     {transform:"translate(0,0) scale(1)",opacity:1},
+     {transform:`translate(${Math.cos(angle)*distance}px,${Math.sin(angle)*distance}px) scale(0)`,opacity:0}
+    ],{duration:1000+Math.random()*500,easing:"ease-out"});
+
+    animation.onfinish=()=>spark.remove();
+   }
+  },burst*350);
+ }
+}
+
+function showFloatingMessage(){
+ const message=document.createElement("div");
+ message.className="floating-message";
+ message.textContent=messages[Math.floor(Math.random()*messages.length)];
+ message.style.left=(5+Math.random()*55)+"vw";
+ message.style.top=(35+Math.random()*45)+"vh";
+
+ document.body.appendChild(message);
+ setTimeout(()=>message.remove(),3500);
+}
+
+function startFloatingMessages(){
+ if(floatingStarted)return;
+ floatingStarted=true;
+
+ function nextMessage(){
+  showFloatingMessage();
+  setTimeout(nextMessage,8000+Math.random()*7000);
+ }
+
+ nextMessage();
+}
+</script>
+</body>
+</html>
